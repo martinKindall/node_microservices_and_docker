@@ -1,0 +1,14 @@
+version: "3.5"
+services:
+  web-fe:
+    build: ./api/.
+    ports:
+      - target: 3000
+        published: 3000
+    networks:
+      - counter-net
+    volumes:
+      - c:/docker_shared/orders_app/api:/api
+
+networks:
+  counter-net:
