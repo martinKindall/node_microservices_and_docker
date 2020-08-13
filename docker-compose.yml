@@ -1,14 +1,16 @@
 version: "3.5"
 services:
-  web-fe:
+  orders-api:
     build: ./api/.
+    command: sh -c "npm install && node app.js"
     ports:
       - target: 3000
         published: 3000
     networks:
       - counter-net
+    working_dir: /src
     volumes:
-      - c:/docker_shared/orders_app/api:/api
+      - c:/docker_shared/orders_app/api:/src:cached
 
 networks:
   counter-net:
