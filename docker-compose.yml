@@ -11,6 +11,16 @@ services:
     working_dir: /src
     volumes:
       - c:/docker_shared/orders_app/api:/src
+
+  orders-db:
+    build: ./db/.
+    command: sh -c "npm install && npm start"
+    networks:
+      - counter-net
+    working_dir: /src
+    volumes:
+      - c:/docker_shared/orders_app/db:/src
+
   redis:
     image: "redis:alpine"
     networks:

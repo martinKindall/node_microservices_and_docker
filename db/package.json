@@ -1,0 +1,14 @@
+{
+  "name": "orders_db",
+  "version": "1.0.0",
+  "description": "Example of microservices with express",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "redis": "^3.0.2"
+  }
+}
