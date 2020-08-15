@@ -1,8 +1,12 @@
+const { promisify } = require("util");
+
 const redis = require("redis");
 const client = redis.createClient({
     host: "redis",
     port: 6379
 });
+
+const incrAsync = promisify(client.incr).bind(client);
 
 
 module.exports = function(app) {
@@ -12,9 +16,13 @@ module.exports = function(app) {
     
     app.post('/orders', (req, res) => {
         const newOrder = req.body;
-        client.incr("fruits", (err, reply) => {
-            console.log(reply);
+
+        incrAsync("fruits")
+        .then(reply => {
+            res.json({"order": newOrder, "fruits": reply});
+        }).catch(err => {
+            res.status(500).json({
+                "message": `There was a problem: ${JSON.stringify(err)}`});
         });
-        res.json({"order": newOrder, "times": client.get("fruits")});
     });
 }
