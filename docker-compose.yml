@@ -11,6 +11,10 @@ services:
     working_dir: /src
     volumes:
       - c:/docker_shared/orders_app/api:/src
+  redis:
+    image: "redis:alpine"
+    networks:
+      counter-net:
 
 networks:
   counter-net:

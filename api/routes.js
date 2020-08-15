@@ -1,5 +1,8 @@
-//const redis = require("redis");
-//const client = redis.createClient();
+const redis = require("redis");
+const client = redis.createClient({
+    host: "redis",
+    port: 6379
+});
 
 
 module.exports = function(app) {
@@ -9,6 +12,9 @@ module.exports = function(app) {
     
     app.post('/orders', (req, res) => {
         const newOrder = req.body;
-        res.json(newOrder);
+        client.incr("fruits", (err, reply) => {
+            console.log(reply);
+        });
+        res.json({"order": newOrder, "times": client.get("fruits")});
     });
 }
