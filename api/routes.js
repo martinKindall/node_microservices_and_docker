@@ -1,4 +1,5 @@
 const { promisify } = require("util");
+const axios = require('axios').default;
 
 const redis = require("redis");
 const publisher = redis.createClient({
@@ -12,7 +13,13 @@ const publishAsync = promisify(publisher.publish).bind(publisher);
 
 module.exports = function(app) {
     app.get('/orders', (req, res) => {
-        res.json({"message": "I was read!"});
+        axios.get('http://orders-db/orders')
+        .then((response) => {
+            res.json(message.body);
+        })
+        .catch((error) => {
+            res.json({"error": JSON.stringify(error)});
+        });
     });
     
     app.post('/orders', (req, res) => {

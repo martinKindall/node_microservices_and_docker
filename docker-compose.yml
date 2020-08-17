@@ -17,6 +17,9 @@ services:
     command: sh -c "npm install && npm start"
     networks:
       - counter-net
+    ports:
+    - target: 3001
+      published: 3001
     working_dir: /src
     volumes:
       - c:/docker_shared/orders_app/db:/src

@@ -1,5 +1,4 @@
 const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
 const url = 'mongodb://root:example@mongo';
 
 const dbName = 'orders_app';
@@ -13,10 +12,18 @@ const insertOrderPromise = function(newOrder) {
 
 const readOrders = function(db) {
     const orders = db.collection('orders');
-    return orders.find();
+    console.log("reading order 2");
+
+    try {
+        return orders.find().toArray();
+    } catch (error) {
+        console.log(error);
+        console.log(`the error 2: ${JSON.stringify(error)}`);
+    }
 };
 
 const establishClientConnectionAndOperate = (operation) => {
+    console.log("reading order operating");
     return MongoClient
         .connect(url)
         .then(client => {
@@ -27,6 +34,7 @@ const establishClientConnectionAndOperate = (operation) => {
             });
         })
         .catch(err => {
+            console.log(`aca: ${JSON.stringify(err)}`);
             return Promise.reject(err);
         });
 };
@@ -37,6 +45,7 @@ function MongoService() {
     };
 
     this.readOrders = () => {
+        console.log("reading order");
         return establishClientConnectionAndOperate(readOrders);
     };
 }
