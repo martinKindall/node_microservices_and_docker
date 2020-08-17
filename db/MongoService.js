@@ -16,13 +16,8 @@ function MongoService() {
         .then(client => {
             const db = client.db(dbName);
             return insertOrderPromise(db, order)
-            .then(res => {
-                client.close();
-                return Promise.resolve("ok");
-            })
-            .catch(err => {
-                client.close();
-                return Promise.reject(err);
+            .finally(() => {
+                client.close()
             });
         })
         .catch(err => {
