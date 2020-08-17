@@ -4,18 +4,24 @@ const url = 'mongodb://root:example@mongo';
 
 const dbName = 'orders_app';
 
-const insertOrderPromise = function(db, newOrder) {
-    const orders = db.collection('orders');
-    return orders.insertOne(newOrder);
+const insertOrderPromise = function(newOrder) {
+    return (db) => {
+        const orders = db.collection('orders');
+        return orders.insertOne(newOrder);
+    };
 }
 
-function MongoService() {
-    this.saveOrder = (order) => {
-        return MongoClient
+const readOrders = function(db) {
+    const orders = db.collection('orders');
+    return orders.find();
+};
+
+const establishClientConnectionAndOperate = (operation) => {
+    return MongoClient
         .connect(url)
         .then(client => {
             const db = client.db(dbName);
-            return insertOrderPromise(db, order)
+            return operation(db)
             .finally(() => {
                 client.close()
             });
@@ -23,6 +29,15 @@ function MongoService() {
         .catch(err => {
             return Promise.reject(err);
         });
+};
+
+function MongoService() {
+    this.saveOrder = (order) => {
+        return establishClientConnectionAndOperate(insertOrderPromise(order));
+    };
+
+    this.readOrders = () => {
+        return establishClientConnectionAndOperate(readOrders);
     };
 }
 
