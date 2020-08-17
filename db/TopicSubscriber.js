@@ -12,7 +12,7 @@ const dbName = 'orders_app';
 
 const CHANNEL = "new_orders";
 
-function subscribeToBrokerAndPersistNewOrders() {
+const subscribeToBrokerAndPersistNewOrders = function() {
     const insertOrder = function(db, newOrder, callback) {
         const orders = db.collection('orders');
         orders.insert(newOrder, function(err, result) {
@@ -43,7 +43,6 @@ function subscribeToBrokerAndPersistNewOrders() {
     subscriber.subscribe(CHANNEL);
 }
 
-
 module.exports = {
     subscribeToBrokerAndPersistNewOrders: subscribeToBrokerAndPersistNewOrders
-}
+};

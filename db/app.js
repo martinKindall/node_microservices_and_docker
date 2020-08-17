@@ -1,3 +1,3 @@
-const { subscribeToBrokerAndPersistNewOrders } = require("./TopicSubscriber");
+const TopicSubscriber = require("./TopicSubscriber.js");
 
-subscribeToBrokerAndPersistNewOrder();
+TopicSubscriber.subscribeToBrokerAndPersistNewOrders();
