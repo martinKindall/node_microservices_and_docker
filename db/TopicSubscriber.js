@@ -14,8 +14,12 @@ const subscribeToBrokerAndPersistNewOrders = function(dbService) {
     
     subscriber.on("message", function(channel, message) {
         console.log(`Received message from ${channel}: ${message}`);
-        dbService.saveOrder(JSON.parse(message), () => {
+        dbService.saveOrder(JSON.parse(message))
+        .then(res => {
             console.log("Successfully saved!");
+        })
+        .catch(err => {
+            console.log(`There was an error: ${JSON.stringify(err)}`);
         });
     });
     
