@@ -17,6 +17,6 @@ app.get('/orders', (req, res) => {
     })
 });
 
-app.listen(3001, function () {
-  console.log('DB microservice listening on port 3001!');
+app.listen(80, function () {
+  console.log('DB microservice listening on port 80!');
 });

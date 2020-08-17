@@ -15,7 +15,7 @@ module.exports = function(app) {
     app.get('/orders', (req, res) => {
         axios.get('http://orders-db/orders')
         .then((response) => {
-            res.json(message.body);
+            res.json(response.data);
         })
         .catch((error) => {
             res.json({"error": JSON.stringify(error)});
