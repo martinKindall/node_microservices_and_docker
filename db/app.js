@@ -1,3 +1,4 @@
 const TopicSubscriber = require("./TopicSubscriber.js");
+const Mongo = require("./MongoService.js");
 
-TopicSubscriber.subscribeToBrokerAndPersistNewOrders();
+TopicSubscriber.subscribeToBrokerAndPersistNewOrders(new Mongo.MongoService());
