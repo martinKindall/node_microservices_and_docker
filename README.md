@@ -29,3 +29,28 @@ This is a MongoDB server based on the Docker [MongoDB image](https://hub.docker.
 ## Mongo-express
 
 This is a Mongo Web based client that is exposed to the users. It is very convenient for checking if the data is being properly written into the DB.
+
+# Usage
+
+This project was developed using Windows 10, hence the shared drive in the docker-compose.yml. But this can work on GNU/Linux or OSX too, just change the path of the volume. 
+
+I develop in Docker using source files mounted in volumes, this way any change on the source file can be quickly detected by the container without having to build the images again. I still have to do _docker-compose stop_ and _docker-compose up_ to catch the changes, but the amount of time it takes is short compared to building images.
+
+Once in the root of this project, just write: 
+
+```
+docker-compose up
+```
+
+And let compose do its magic. The API will be reachable on localhost port 3000. Available routes are
+
+```
+GET /orders
+```
+
+and 
+
+```
+POST /orders
+```
+with data in JSON as a body.
