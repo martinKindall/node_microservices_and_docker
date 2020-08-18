@@ -20,10 +20,12 @@ It also subscribes to the _Redis_ channel where the new orders are being sent, a
 
 This is just a Redis instance, based on the official Docker [Redis image](https://hub.docker.com/_/redis). It is only reachable by the microservices and not by the users.
 
+In this project, Redis is used as a _fire and forget_ Message Broker. 
+
 ## Mongo microservice
 
 This is a MongoDB server based on the Docker [MongoDB image](https://hub.docker.com/_/mongo). It is only reachable by the microservices and not by the users. The user can read it through the API though.
 
 ## Mongo-express
 
-This is a Mongo Web based client that is exposed to the users. It is very convenient to check if the data is being properly written into the DB.
+This is a Mongo Web based client that is exposed to the users. It is very convenient for checking if the data is being properly written into the DB.
